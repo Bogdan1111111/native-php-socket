@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>WebSocket</title>
+</head>
+
+<body>
+  <table>
+    <tr>
+      <td>
+        <textarea name="name" rows="8" cols="80" id="input"></textarea><br>
+        <input type="file" id="inputFile"><br>
+        <button type="button" name="button" id="sendToServer">Send</button>
+      </td>
+    </tr>
+    <tr>
+      <td id="messages"></td>
+    </tr>
+  </table>
+</body>
+
+<script type="text/javascript">
+  (function() {
+    var socket = new WebSocket('ws://localhost:8080?name=Bogdan');
+
+    socket.onopen = function() {
+      console.log('connected open!');
+    }
+
+    socket.onerror = function() {
+      console.log('connection error!');
+    }
+
+    socket.onclose = function() {
+      console.log('connection closed!');
+    }
+
+    socket.onmessage = function(e) {
+      document.getElementById('messages').innerHTML += '<p>' + e.data + '</p>';
+    }
+
+    document.getElementById('sendToServer').onclick = function() {
+      var textarea = document.getElementById('input');
+      textarea.value.lenght ?? socket.send(textarea.value);
+
+      textarea.value = '';
+    }
+  })();
+</script>
+
+</html>
