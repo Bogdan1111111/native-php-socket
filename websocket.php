@@ -133,7 +133,7 @@ function encodeToFrame($content)
   }
 
   $firstByte = chr(bindec('1000' . $opcodInBits));
-  $secondByte = chr(bindec('1' . $bodyLenghtInSecondByte));
+  $secondByte = chr(bindec('0' . $bodyLenghtInSecondByte));
 
   return $firstByte . $secondByte . $content;
 }
